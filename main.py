@@ -1,12 +1,15 @@
 from flask import Flask
 
-from api.v1.games import game_api, Game 
-from api.v1.characters import character_api, Character 
-from api.v1.users import user_api, User
+from api.v1.Game import game_api
+from api.v1.Character import character_api
+from api.v1.User import user_api
+from api.v1.model import *
 
 from flask.json import JSONEncoder
 
-class MyJSONEncoder(JSONEncoder):
+from mongoengine import connect
+
+'''class MyJSONEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Game):
             return {
@@ -30,15 +33,25 @@ class MyJSONEncoder(JSONEncoder):
 		'characters': obj.characters,
 		"games": obj.games
             }
-        return super(MyJSONEncoder, self).default(obj)
+        return super(MyJSONEncoder, self).default(obj)'''
 
 app = Flask(__name__)
-app.json_encoder = MyJSONEncoder
+#app.json_encoder = MyJSONEncoder
 
 # Blueprint
 app.register_blueprint(game_api)
-app.register_blueprint(character_api)
 app.register_blueprint(user_api)
+app.register_blueprint(character_api)
+
+# MongoDB database
+app.config['MONGODB_DB'] = 'SavingThrow'
+connect(
+    'SavingThrow',
+    host='mongodb://localhost/SavingThrow',
+    port=27017 
+)
+
+
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

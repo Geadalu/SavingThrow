@@ -1,0 +1,17 @@
+Character
+- id
+- name
+- user_id
+- dead
+
+Game
+- id
+- name
+- characters
+
+User
+- id
+- name
+- email
+- characters
+- games
