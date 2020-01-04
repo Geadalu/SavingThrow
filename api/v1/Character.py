@@ -16,13 +16,42 @@ def getCharacters():
   
 #Obtener atributos de un personaje
 @character_api.route('/v1/characters/<int:character_id>/', methods=['GET'])
-def getCharacterAttributes(character_id):
+def getCharacter(character_id):
     character = Character.objects(e_id=character_id).exclude("id").get()
     if not character:
         abort(404)
     character = toJson(character)
     return jsonify({'character ': character})
  
+
+#Create character
+@game_api.route('/v1/games/', methods=['POST'])
+def createCharacter():
+    if not request.json or not 'name' in request.json:
+        abort(404)
+    if Character.objects:
+        character = Character.objects.order_by('-e_id').first() # Last document created
+        e_id = character.e_id + 1
+    else:
+        e_id = 1
+      
+    name = request.json.get('name')  
+    hp = request.json.get('hp')
+    level = request.json.get('level')
+    race = request.json.get('race')
+    character_class = request.json.get('character_class')
+    alignment = request.json.get('alignment')
+
+    character = Character(e_id, name, hp, level, race, character_class, alignment)
+
+    try:
+        character.save()
+    except errors.NotUniqueError:
+        error = 'Whoops! We can not have two characters with the same e_id, right?'
+        return jsonify(error=error), 409
+
+    character = toJson(character)
+    return jsonify({'character created: ':character}),201
 
 #Update character
 @character_api.route('/v1/characters/<int:character_id>/', methods=['POST'])

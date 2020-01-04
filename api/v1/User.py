@@ -5,8 +5,6 @@ import pymongo
 
 from api.v1.model import *
 
-
-  
 user_api = Blueprint('user_api', __name__)
  
 #Obtener la lista de los usuarios
@@ -17,6 +15,15 @@ def getUsers():
         users_list.append(toJson(user))
     return jsonify({'users': users_list})
 
+
+#Obtener los atributos de un usuario
+@user_api.route('/v1/users/<int:user_id>/', methods=['GET'])
+def getUser(user_id):
+    user = User.objects(e_id=user_id).exclude("id").get()
+    if not user:
+        abort(404)
+    user = toJson(user)
+    return jsonify({'user ': user})
 
 #Crear un nuevo usuario
 @user_api.route('/v1/users/', methods=['POST'])
@@ -52,19 +59,8 @@ def createUser():
         error = 'Whoops! We can not have two users with the same e_id, right?'
         return jsonify(error=error), 409
 
-    student = toJson(user)
-    return jsonify({'user created: ':user}),201
-
-
-#Obtener los atributos de un usuario
-@user_api.route('/v1/users/<int:user_id>/', methods=['GET'])
-def getUser(user_id):
-    user = User.objects(e_id=user_id).exclude("id").get()
-    if not user:
-        abort(404)
     user = toJson(user)
-    return jsonify({'user ': user})
-
+    return jsonify({'user created: ':user}),201
 
 #Actualizar usuario
 @user_api.route('/v1/users/<int:user_id>/', methods=['POST'])
