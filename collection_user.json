@@ -1,0 +1,2 @@
+{"_id":{"$oid":"5e10a68a43c8c933d0f29ee8"},"e_id":{"$numberInt":"1"},"name":"Geadalu","email":"lucia@savingthrow.com","characters":["1","2"],"games":["1"]}
+{"_id":{"$oid":"5e10a9ac43c8c933d0f29ee9"},"e_id":{"$numberInt":"2"},"name":"juanjoglvz","email":"juanjo@savingthrow.com","characters":["3"],"games":["1"]}

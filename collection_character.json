@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5e10a53743c8c933d0f29ee6"},"e_id":{"$numberInt":"1"},"name":"Lightweaver","hp":{"$numberInt":"9"},"level":{"$numberInt":"2"},"character_class":"Paladin (Redemption)","alignment":"Lawful good"}
+{"_id":{"$oid":"5e10a5bc9689bf33d0fdea8b"},"e_id":{"$numberInt":"2"},"name":"Ysera","hp":{"$numberInt":"250"},"level":{"$numberInt":"12"},"character_class":"Druid (dragon)","alignment":"Lawful neutral"}
+{"_id":{"$oid":"5e10a5c99689bf33d0fdea8c"},"e_id":{"$numberInt":"3"},"name":"Cancho","hp":{"$numberInt":"7"},"level":{"$numberInt":"1"},"character_class":"Mage (fire school)","alignment":"Chaotic neutral"}
